@@ -30,17 +30,30 @@ class App extends Component<
             textAlign: 'center'
           }
         },
+
+        createElement("hr", {}),
+
         createElement(
-          "pre",
-          {},
-          createElement(
-            "a",
-            {
-              href: "https://adamwong246.github.io/blog/47-RogueStatejs-v001/",
-            },
-            "RogueState.js"
-          )
+          "a",
+          {
+            href: "https://adamwong246.github.io/RogueState.js/",
+          },
+          "RogueState.js"
         ),
+
+        createElement(
+          "br", {},
+        ),
+
+
+        createElement(
+          "a",
+          {
+            href: "https://github.com/adamwong246/RogueState.js/",
+          },
+          "github"
+        ),
+
         createElement("hr", {}),
 
         createElement(

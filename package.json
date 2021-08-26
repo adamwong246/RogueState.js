@@ -1,8 +1,8 @@
 {
-  "name": "xstateExperiment",
-  "version": "0.0.1",
+  "name": "RogueState.js",
+  "version": "0.0.3",
   "scripts": {
-    "dev": "webpack serve --config webpack.config.js --progress --profile --content-base dist/",
+    "dev": "webpack serve --config webpack.config.js --progress --profile --content-base docs/",
     "build": "webpack --config webpack.config.js",
     "test": "node -r esm src/test.js"
   },
