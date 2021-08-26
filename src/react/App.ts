@@ -27,8 +27,8 @@ class App extends Component<
         "nav",
         {
           style: {
-            textAlign: 'center'
-          }
+            textAlign: "center",
+          },
         },
 
         createElement("hr", {}),
@@ -41,10 +41,7 @@ class App extends Component<
           "RogueState.js"
         ),
 
-        createElement(
-          "br", {},
-        ),
-
+        createElement("br", {}),
 
         createElement(
           "a",
@@ -61,21 +58,41 @@ class App extends Component<
           { onClick: () => this.setState({ tab: MenuItem.about }) },
           "about"
         ),
+
+        createElement("hr", {}),
+
+        
         createElement(
           "button",
           { onClick: () => this.setState({ tab: MenuItem.log }) },
           "Logs"
         ),
-        createElement("button", {
-          onClick: () => this.setState({ tab: MenuItem.director }),
-        }, "Director"),
+
+        createElement("hr", {}),
+
+        createElement(
+          "button",
+          {
+            onClick: () => this.setState({ tab: MenuItem.game }),
+          },
+          "Game"
+        ),
+
+        createElement("hr", {}),
+
+        createElement(
+          "button",
+          {
+            onClick: () => this.setState({ tab: MenuItem.director }),
+          },
+          "Director"
+        ),
         
-        createElement("button", {
-          onClick: () => this.setState({ tab: MenuItem.game }),
-        }, "Game"),
 
+        createElement("hr", {}),
 
-        createElement('hr', {}),
+        createElement("p", {}, "players: "),
+
         createElement(
           "ul",
           {},
@@ -108,16 +125,22 @@ class App extends Component<
           }),
 
         this.state.tab === MenuItem.game &&
-          createElement('div', {},
-            createElement('h1', {}, this.props.game.name),
-            createElement('h2', {}, this.props.game.description),
-            createElement('h3', {}, `Number of players: ${this.props.game.numberOfPlayers}`),
+          createElement(
+            "div",
+            {},
+            createElement("h1", {}, this.props.game.name),
+            createElement("h2", {}, this.props.game.description),
+            createElement(
+              "h3",
+              {},
+              `Number of players: ${this.props.game.numberOfPlayers}`
+            ),
 
             createElement(FsmPage, {
               fsm: this.props.game.fsm,
             }),
 
-            createElement('pre', {}, JSON.stringify(this.props.game.machine))
+            createElement("pre", {}, JSON.stringify(this.props.game.machine))
           ),
 
         this.state.tab === MenuItem.log &&
