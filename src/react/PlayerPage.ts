@@ -1,6 +1,6 @@
 import { Component, createElement } from "react";
 
-import { iPlayer } from "rogueState/types";
+import { iDirector, iPlayer } from "rogueState/types";
 import ContextPage from "./ContextPage";
 import FsmPage from "./FsmPage";
 import SendForm from "./SendForm";
@@ -8,7 +8,8 @@ import StatePage from "./StatePage";
 
 export default class extends Component<
   {
-    player: iPlayer
+    player: iPlayer;
+    director: iDirector;
   },
   {
     tab: string
@@ -51,7 +52,7 @@ export default class extends Component<
           "send"
       ),
 
-      this.state.tab === "context" &&
+        this.state.tab === "context" &&
         createElement(ContextPage, {
           extendedState: this.props.player.interpreter.state.context,
         }),
@@ -60,6 +61,8 @@ export default class extends Component<
         createElement(StatePage, {
           finiteState: this.props.player.interpreter.state.value
         }),
+
+      
 
       this.state.tab === "fsm" &&
         createElement(FsmPage, {
@@ -71,6 +74,7 @@ export default class extends Component<
           SendForm,
           {
             player: this.props.player,
+            director: this.props.director,
           },
           []
         )

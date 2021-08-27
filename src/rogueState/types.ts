@@ -1,9 +1,18 @@
 import { ActorRef, StateMachine, Interpreter } from "xstate";
 
-export interface iPlayer {
+export interface iFsmEntity {
   fsm: object;
-  interpreter: Interpreter<any>;
   machine: StateMachine<any, any, any, any>;
+  // interpreter: Interpreter<any>;
+}
+
+export interface iDirector extends iFsmEntity{
+  interpreter: Interpreter<any>;
+}
+
+export interface iPlayer extends iFsmEntity{
+  // actor: ActorRef<any, any>;
+  interpreter: Interpreter<any>;
 }
 
 export interface iGame {

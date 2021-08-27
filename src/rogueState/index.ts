@@ -1,7 +1,7 @@
 // SFSMES
 // Super Finite State Machine Entertainment System
 
-import { iGame, iPlayer } from "rogueState/types";
+import { iGame, iPlayer, iDirector } from "rogueState/types";
 import { createMachine, interpret, spawn } from "xstate";
 
 import ticTacToe from "./ticTacToe";
@@ -11,7 +11,6 @@ import RogueFsmMaker from "./fsms/director";
 const { RogueStateMachine, RogueFsm } = RogueFsmMaker();
 
 export default (callback) => {
-  // const directorActor = spawn(RogueStateMachine);
   const directorInterpreter = interpret(RogueStateMachine)
     .onStop((context, prevContext) => {
       console.log("onSend");
@@ -43,12 +42,10 @@ export default (callback) => {
       console.log(" context", context);
       console.log(" prevContext", prevContext);
 
-      const director: iPlayer = {
-        // actor: directorActor,
+      const director: iDirector = {
         interpreter: directorInterpreter,
         fsm: RogueFsm,
         machine: RogueStateMachine,
-        playerName: "DIRECTOR",
       };
 
       const gameConfig: iGame = ticTacToe();

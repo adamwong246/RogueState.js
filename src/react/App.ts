@@ -1,15 +1,18 @@
 import { Component, createElement } from "react";
-import { iPlayer, iGame } from "rogueState/types";
+import StatechartViz from 'statechart-viz'
+
+import { iPlayer, iGame, iDirector } from "rogueState/types";
 
 import AboutPage from "./About";
 import FsmPage from "./FsmPage";
 
 import { MenuItem } from "./Menu";
 import PlayerPage from "./PlayerPage";
+import SendForm from "./SendForm";
 
 class App extends Component<
   {
-    director: iPlayer;
+    director: iDirector;
     game: iGame;
   },
   {
@@ -61,7 +64,6 @@ class App extends Component<
 
         createElement("hr", {}),
 
-        
         createElement(
           "button",
           { onClick: () => this.setState({ tab: MenuItem.log }) },
@@ -87,22 +89,22 @@ class App extends Component<
           },
           "Director"
         ),
-        
+
         createElement(
           "ul",
           {},
           ...this.props.director.interpreter.state.context.players.map(
             (player: iPlayer) => {
-              console.log(player.interpreter.id);
               return createElement(
                 "li",
                 {},
                 createElement(
                   "button",
                   {
-                    onClick: (e) => this.setState({ tab: player.interpreter.id }),
+                    onClick: (e) =>
+                      this.setState({ tab: player.interpreter.id }),
                   },
-                  `#${player.interpreter.id.valueOf()}  `
+                  player.interpreter.id
                 )
               );
             }
@@ -118,6 +120,7 @@ class App extends Component<
         this.state.tab === MenuItem.director &&
           createElement(PlayerPage, {
             player: this.props.director,
+            director: this.props.director,
           }),
 
         this.state.tab === MenuItem.game &&
@@ -160,11 +163,21 @@ class App extends Component<
           ),
 
         this.props.director.interpreter.state.context.players
-          .filter((player) => player.interpreter.id === this.state.tab)
+          .filter((player: iPlayer) => player.interpreter.id === this.state.tab)
           .map((player: iPlayer) => {
-            return createElement(PlayerPage, {
-              player,
-            });
+            return createElement(
+              "div",
+              {},
+              createElement(SendForm, {
+                director: this.props.director,
+                player,
+              }),
+
+              createElement(StatechartViz,{
+                statechart: player.fsm
+              }),
+
+            );
           })
       ),
     ]);

@@ -1,6 +1,7 @@
 import { Component, createElement } from "react";
 import Form from "@rjsf/core";
 import { iPlayer, iDirector } from "rogueState/types";
+import director from "rogueState/fsms/director";
 
 const deps = (
   a: string,

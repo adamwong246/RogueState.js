@@ -8,12 +8,14 @@ import {
   Machine,
   MachineConfig,
   spawn,
-  StateMachine,  
+  StateMachine,
 } from "xstate";
 
 import playerFsm_er from "./player";
 
 const playerFsm: MachineConfig<any, any, any> = playerFsm_er();
+
+
 
 type DirectorEvent =
   | { type: "ADD_PLAYER"; playerName: string }
@@ -72,23 +74,10 @@ const fsm = {
 
             players: (context, event, payload) => {
 
-              const fsm = {
-                ...playerFsm,
-                key: event.payload.playerName
-              };
-
-
-              const machine: StateMachine<any, any, any, any> =
-                createMachine(fsm, {});
-                // invoke(fsm);
-              
-              // machine.parent = directorMachine;
-
-              const interpreter: Interpreter<any, any, any, any> = interpret(
-                machine
-              ).onChange((context, prevContext) => {
-                console.log("mark!");
-              }).start();
+              const fsm = {id: event.payload.playerName, ...playerFsm};
+              const machine: StateMachine<any, any, any, any> = createMachine(fsm);
+              const interpreter: Interpreter<any> = interpret(machine);
+              interpreter.start();
 
               const newPlayer: iPlayer = {
                 machine,
