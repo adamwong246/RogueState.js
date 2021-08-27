@@ -9,6 +9,7 @@ import FsmPage from "./FsmPage";
 import { MenuItem } from "./Menu";
 import PlayerPage from "./PlayerPage";
 import SendForm from "./SendForm";
+import DoForm from "./DoForm";
 
 class App extends Component<
   {
@@ -168,7 +169,7 @@ class App extends Component<
             return createElement(
               "div",
               {},
-              createElement(SendForm, {
+              createElement(DoForm, {
                 director: this.props.director,
                 player,
               }),

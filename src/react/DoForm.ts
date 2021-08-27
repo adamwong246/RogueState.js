@@ -1,5 +1,6 @@
 import { Component, createElement } from "react";
 import Form from "@rjsf/core";
+
 import { iPlayer, iDirector } from "rogueState/types";
 import actions from "../rogueState/actions";
 
@@ -76,34 +77,11 @@ export default class extends Component<
         );
       },
 
-      schema: this.makeSchema(player.interpreter.state.nextEvents),
+      schema: this.makeSchema(
+        player.interpreter.state.nextEvents.filter((eString) => {
+          return !actions[eString].director;
+        })
+      ),
     });
   }
 }
-
-// const ADD_PLAYER = "ADD_PLAYER";
-// const TICK = "TICK";
-// const SPEAK = "SPEAK";
-// const GREEN_FLAG = "GREEN_FLAG";
-// const CHECKERED_FLAG = "CHECKERED_FLAG";
-
-// const dependents = {
-//   ADD_PLAYER: {
-//     additionsToPropertiesAtMessagePayload: { playerName: { type: "string" } },
-//   },
-//   // TICK: {
-//   //   additionsToPropertiesAtMessagePayload: { tock: { type: "boolean" } },
-//   // },
-//   SPEAK: {
-//     additionsToPropertiesAtMessagePayload: { message: { type: "string" } },
-//   },
-//   // GREEN_FLAG: {
-//   //   additionsToPropertiesAtMessagePayload: {},
-//   // },
-//   // CHECKERED_FLAG: {
-//   //   additionsToPropertiesAtMessagePayload: {},
-//   // },
-//   // PED_COUNTDOWN: {
-//   //   additionsToPropertiesAtMessagePayload: {},
-//   // },
-// };

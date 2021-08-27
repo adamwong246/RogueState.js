@@ -5,7 +5,7 @@ let playerFsm: MachineConfig<any, any, any> = {
   initial: "preGame",
 
   on: {
-    START: { target: "wait" },
+    // START: { target: "wait" },
     SPEAK: {
       actions: sendParent((ctx, vnt) => {
         return {
@@ -33,7 +33,11 @@ let playerFsm: MachineConfig<any, any, any> = {
   },
 
   states: {
-    preGame: {},
+    preGame: {
+      on: {
+        START: {target: "wait"}
+      }
+    },
 
     wait: {
       on: {

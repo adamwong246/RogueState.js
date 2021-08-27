@@ -15,8 +15,6 @@ import playerFsm_er from "./player";
 
 const playerFsm: MachineConfig<any, any, any> = playerFsm_er();
 
-
-
 type DirectorEvent =
   | { type: "ADD_PLAYER"; playerName: string }
   | { type: "TICK"; tock: boolean }
