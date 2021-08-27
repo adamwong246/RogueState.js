@@ -8,7 +8,7 @@ import {
   Machine,
   MachineConfig,
   spawn,
-  StateMachine,
+  StateMachine,  
 } from "xstate";
 
 import playerFsm_er from "./player";
@@ -80,8 +80,9 @@ const fsm = {
 
               const machine: StateMachine<any, any, any, any> =
                 createMachine(fsm, {});
+                // invoke(fsm);
               
-              machine.parent = directorMachine;
+              // machine.parent = directorMachine;
 
               const interpreter: Interpreter<any, any, any, any> = interpret(
                 machine

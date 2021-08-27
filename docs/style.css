@@ -2,6 +2,10 @@ p {
   max-width: 35em;
 }
 
+body {
+  margin: 0px;
+}
+
 #main-container {
   display: flex;
   min-height: 99vh;
@@ -20,7 +24,7 @@ nav {
   position: fixed;
   width: 15rem;
   background-color: lightgray;
-  height: 100%
+  height: 100%;
 }
 
 pre {
@@ -30,7 +34,8 @@ pre {
   white-space: -moz-pre-wrap;
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
-  word-wrap: break-word
+  word-wrap: break-word;
+  margin: 0px;
 }
 
 .clearfix::after {

@@ -9,8 +9,8 @@ export default class extends Component<any, {}> {
 
   render() {
     return createElement("div", {}, [
-      createElement("pre", {}, `
-# README
+      createElement("pre", {},
+`# README
 
 RogueState.ts is an experimental Typescript rogue-ish game engine and multiplayer server/client. It's hallmark is the use of Finite State Machine (FSMs), which it employs in many ways.
 

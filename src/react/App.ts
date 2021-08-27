@@ -88,9 +88,6 @@ class App extends Component<
           "Director"
         ),
         
-
-        createElement("hr", {}),
-
         createElement(
           "ul",
           {},
