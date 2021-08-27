@@ -91,22 +91,21 @@ class App extends Component<
 
         createElement("hr", {}),
 
-        createElement("p", {}, "players: "),
-
         createElement(
           "ul",
           {},
           ...this.props.director.interpreter.state.context.players.map(
             (player: iPlayer) => {
+              console.log(player.interpreter.id);
               return createElement(
                 "li",
                 {},
                 createElement(
                   "button",
                   {
-                    onClick: (e) => this.setState({ tab: player.actor.id }),
+                    onClick: (e) => this.setState({ tab: player.interpreter.id }),
                   },
-                  `#${player.actor.id} aka ${player.playerName}`
+                  `#${player.interpreter.id.valueOf()}  `
                 )
               );
             }
@@ -164,7 +163,7 @@ class App extends Component<
           ),
 
         this.props.director.interpreter.state.context.players
-          .filter((player) => player.actor.id === this.state.tab)
+          .filter((player) => player.interpreter.id === this.state.tab)
           .map((player: iPlayer) => {
             return createElement(PlayerPage, {
               player,

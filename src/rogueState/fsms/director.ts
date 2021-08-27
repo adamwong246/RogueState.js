@@ -5,16 +5,30 @@ import {
   createMachine,
   interpret,
   Interpreter,
+  Machine,
+  MachineConfig,
   spawn,
   StateMachine,
 } from "xstate";
 
-import playerFsm from "./player";
+import playerFsm_er from "./player";
 
-let actor: ActorRef<any, any>;
-let interpreter: Interpreter<any, any, any, any>;
+const playerFsm: MachineConfig<any, any, any> = playerFsm_er();
 
-export default {
+type DirectorEvent =
+  | { type: "ADD_PLAYER"; playerName: string }
+  | { type: "TICK"; tock: boolean }
+  | { type: "SPEAK"; message: string }
+  | { type: "GREEN_FLAG" }
+  | { type: "CHECKERED_FLAG" };
+
+interface DirectorContext {
+  time: number;
+  logs: object[];
+  players: any[];
+}
+
+const fsm = {
   id: "rogueState",
   key: "Rogue State",
   context: {
@@ -27,7 +41,7 @@ export default {
   on: {
     SPEAK: {
       actions: assign({
-        logs: (context, event) => {
+        logs: (context: DirectorContext, event) => {
           console.log("SPEAK", event);
           return context.logs.concat([
             {
@@ -47,7 +61,7 @@ export default {
         ADD_PLAYER: {
           target: "pregame",
           actions: assign({
-            logs: (context, event) => {
+            logs: (context: DirectorContext, event) => {
               return context.logs.concat([
                 {
                   sender: event.sender,
@@ -55,20 +69,30 @@ export default {
                 },
               ]);
             },
+
             players: (context, event, payload) => {
 
+              const fsm = {
+                ...playerFsm,
+                key: event.payload.playerName
+              };
+
+
               const machine: StateMachine<any, any, any, any> =
-                createMachine(playerFsm);
-              actor = spawn(machine);
-              interpreter = interpret(machine);
-              interpreter.start();
+                createMachine(fsm, {});
+              
+              machine.parent = directorMachine;
+
+              const interpreter: Interpreter<any, any, any, any> = interpret(
+                machine
+              ).onChange((context, prevContext) => {
+                console.log("mark!");
+              }).start();
 
               const newPlayer: iPlayer = {
-                playerName: event.payload.playerName,
                 machine,
-                actor,
                 interpreter,
-                fsm: playerFsm,
+                fsm,
               };
 
               return context.players.concat([newPlayer]);
@@ -84,7 +108,16 @@ export default {
       },
     },
     postgame: {
-      type: "final",
+      // type: "final",
     },
   },
+};
+
+const directorMachine = createMachine<DirectorContext, DirectorEvent>(fsm);
+
+export default () => {
+  return {
+    RogueStateMachine: directorMachine,
+    RogueFsm: fsm,
+  };
 };

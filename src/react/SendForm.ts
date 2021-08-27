@@ -37,29 +37,26 @@ const dependents = {
   ADD_PLAYER: {
     additionsToPropertiesAtMessagePayload: { playerName: { type: "string" } },
   },
-  TICK: {
-    additionsToPropertiesAtMessagePayload: { tock: { type: "boolean" } },
-  },
+  // TICK: {
+  //   additionsToPropertiesAtMessagePayload: { tock: { type: "boolean" } },
+  // },
   SPEAK: {
     additionsToPropertiesAtMessagePayload: { message: { type: "string" } },
   },
-  GREEN_FLAG: {
-    additionsToPropertiesAtMessagePayload: {},
-  },
-  CHECKERED_FLAG: {
-    additionsToPropertiesAtMessagePayload: {},
-  },
-  PED_COUNTDOWN: {
-    additionsToPropertiesAtMessagePayload: {},
-  },
+  // GREEN_FLAG: {
+  //   additionsToPropertiesAtMessagePayload: {},
+  // },
+  // CHECKERED_FLAG: {
+  //   additionsToPropertiesAtMessagePayload: {},
+  // },
+  // PED_COUNTDOWN: {
+  //   additionsToPropertiesAtMessagePayload: {},
+  // },
 };
 
-export default class extends Component<
-  {
-    player: iPlayer;
-  },
-  {}
-> {
+export default class extends Component<{
+  player: iPlayer
+},{}> {
   constructor(props) {
     super(props);
   }
@@ -85,19 +82,23 @@ export default class extends Component<
   }
 
   activateActor(formdata: { messageType: string; messagePayload: object }) {
-    this.props.player.interpreter.send(formdata.messageType, {
+    const player: iPlayer = this.props.player;
+
+    player.interpreter.send(formdata.messageType, {
       payload: formdata.messagePayload,
-      sender: this.props.player.actor.id,
+      sender: player.interpreter.id
     });
   }
 
   render() {
+    const player: iPlayer = this.props.player;
+
     return createElement(Form, {
       onSubmit: (e) => {
         this.activateActor(e.formData as { messageType: string; messagePayload: object });
       },
 
-      schema: this.makeSchema(this.props.player.interpreter.state.nextEvents),
+      schema: this.makeSchema(player.interpreter.state.nextEvents),
     });
   }
 }
