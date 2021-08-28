@@ -22,7 +22,7 @@ class App extends Component<
 > {
   constructor(props) {
     super(props);
-    this.state = { tab: MenuItem.about };
+    this.state = { tab: MenuItem.game };
   }
 
   render() {
@@ -55,13 +55,13 @@ class App extends Component<
           "github"
         ),
 
-        createElement("hr", {}),
+        // createElement("hr", {}),
 
-        createElement(
-          "button",
-          { onClick: () => this.setState({ tab: MenuItem.about }) },
-          "about"
-        ),
+        // createElement(
+        //   "button",
+        //   { onClick: () => this.setState({ tab: MenuItem.about }) },
+        //   "about"
+        // ),
 
         createElement("hr", {}),
 
@@ -116,7 +116,7 @@ class App extends Component<
         "main",
         {},
 
-        this.state.tab === MenuItem.about && createElement(AboutPage, {}),
+        // this.state.tab === MenuItem.about && createElement(AboutPage, {}),
 
         this.state.tab === MenuItem.director &&
           createElement(PlayerPage, {

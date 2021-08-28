@@ -1,6 +1,6 @@
 {
   "name": "RogueState.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "dev": "webpack serve --config webpack.config.js --progress --profile --content-base docs/",
     "build": "webpack --config webpack.config.js",
