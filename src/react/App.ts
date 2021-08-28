@@ -136,6 +136,7 @@ class App extends Component<
               `Number of players: ${this.props.game.numberOfPlayers}`
             ),
 
+            
             createElement(FsmPage, {
               fsm: this.props.game.fsm,
             }),
@@ -169,6 +170,9 @@ class App extends Component<
             return createElement(
               "div",
               {},
+
+              createElement('p', {}, `current value: ${player.interpreter.state.value}`),
+
               createElement(DoForm, {
                 director: this.props.director,
                 player,

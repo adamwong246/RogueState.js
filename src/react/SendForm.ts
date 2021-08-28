@@ -76,7 +76,9 @@ export default class extends Component<
         );
       },
 
-      schema: this.makeSchema(player.interpreter.state.nextEvents),
+      schema: this.makeSchema(
+        player.interpreter.state.nextEvents
+      ),
     });
   }
 }

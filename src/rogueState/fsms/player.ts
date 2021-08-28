@@ -5,38 +5,21 @@ let playerFsm: MachineConfig<any, any, any> = {
   initial: "preGame",
 
   on: {
-    // START: { target: "wait" },
     SPEAK: {
       actions: sendParent((ctx, vnt) => {
         return {
           type: "SPEAK",
-          // target: ".interpreter",
           data: event.data,
         };
       }),
-
-      // actions: sendParent((ctx, event) => {
-      //   return {
-      //     type: "SPEAK",
-      //     data: {
-      //       ...event.data,
-      //       sender: 22
-      //     },
-      //   };
-      // }),
-
-      // actions: send((ctx, event) => {
-      //   // actor.send({type:'SPEAK', payload:{sender: event.sender, payload: payload}});
-      //   // interpreter.send('SPEAK', {sender: event.sender, payload: payload})
-      // },
     },
   },
 
   states: {
     preGame: {
       on: {
-        START: {target: "wait"}
-      }
+        GREEN_FLAG: { target: "wait" },
+      },
     },
 
     wait: {

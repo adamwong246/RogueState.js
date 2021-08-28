@@ -28,6 +28,10 @@ interface DirectorContext {
   players: any[];
 }
 
+const rightNumberOfPlayers = (context, event) => {
+  return context.players.length === 2;
+};
+
 const fsm = {
   id: "rogueState",
   key: "Rogue State",
@@ -57,7 +61,10 @@ const fsm = {
   states: {
     pregame: {
       on: {
-        GREEN_FLAG: { target: "running" },
+        GREEN_FLAG: { 
+          target: "running",
+          cond: rightNumberOfPlayers
+        },
         ADD_PLAYER: {
           target: "pregame",
           actions: assign({
@@ -99,6 +106,10 @@ const fsm = {
       // type: "final",
     },
   },
+
+  guards: {
+    rightNumberOfPlayers
+  }
 };
 
 const directorMachine = createMachine<DirectorContext, DirectorEvent>(fsm);

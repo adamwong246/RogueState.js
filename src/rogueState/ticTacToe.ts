@@ -25,7 +25,7 @@ const fsm = {
   states: {
     setup: {
       on: {
-        BEGIN: { target: "awaitX" },
+        GREEN_FLAG: { target: "awaitX" },
       },
     },
 
